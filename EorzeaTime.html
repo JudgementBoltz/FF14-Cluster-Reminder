@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head></head>
+<body>
+<h1>Alert Timer for Unspoiled Node Spawns.</h1>
+<!-- Found the code for Eorzea clock generator online at http://jsfiddle.net/jryansc/6r85j/ -->
+<script type="text/javascript">
+
+var E_TIME = 20.5714285714;
+var global = {
+    utcTime: null,
+    eorzeaTime: null
+};
+window.setInterval(updateClock, Math.floor(1000 * 60 /  E_TIME));
+
+function updateClock() {
+    global.utcTime = new Date().getTime();
+    var eo_timestamp = Math.floor(global.utcTime * E_TIME);
+    global.eorzeaTime = new Date();
+    global.eorzeaTime.setTime(eo_timestamp);
+    showTime();
+}
+
+function showTime() {
+    var d = new Date();
+    d.setTime(global.eorzeaTime);
+    var eTime = document.getElementById('e-time');
+    var hours = d.getUTCHours();
+    var ampm = hours > 11 ? "PM" : "AM";
+    if(hours > 12)
+        hours -= 12;
+    hours = padLeft(hours);
+    var minutes = d.getUTCMinutes();
+    minutes = padLeft(minutes);
+    eTime.innerHTML = hours + ":" + minutes + " " + ampm;
+	eventTimer(hours,minutes,ampm);
+}
+function padLeft(val){
+    var str = "" + val;
+    var pad = "00";
+    return pad.substring(0, pad.length - str.length) + str;
+}
+
+function eventTimer(hours,minutes,ampm)
+{
+	if(hours=="01" && minutes=="00" && ampm=="AM")
+	{
+		alert("Unspoiled node spawn, Lightning Cluster Slot 2")
+	}
+	else if(hours=="05" && minutes=="00" && ampm=="AM")
+	{
+		alert("Unspoiled node spawn, Fire Cluster Slot 3")
+	}
+	else if(hours=="09" && minutes=="00" && ampm=="AM")
+	{
+		alert("Unspoiled node spawn, Wind Cluster Slot 4")
+	}
+	else if(hours=="01" && minutes=="00" && ampm=="PM")
+	{
+		alert("Unspoiled node spawn, Water Cluster Slot 5")
+	}
+	else if(hours=="05" && minutes=="00" && ampm=="PM")
+	{
+		alert("Unspoiled node spawn, Ice Cluster Slot 6")
+	}
+	else if(hours=="09" && minutes=="00" && ampm=="PM")
+	{
+		alert("Unspoiled node spawn, Earth Cluster Slot 7")
+	}
+}
+
+updateClock();
+</script>
+<div id="e-time"></div>
+<br>
+<table>
+<tr><td bgcolor="9932CC">Lightning Cluster</td><td>Slot 2</td></tr>
+<tr><td bgcolor="880000">Fire Cluster</td><td>Slot 3</td></tr>
+<tr><td bgcolor="006400">Wind Cluster</td><td>Slot 4</td></tr>
+<tr><td bgcolor="4169E1">Water Cluster</td><td>Slot 5</td></tr>
+<tr><td bgcolor="00FFFF">Ice Cluster</td><td>Slot 6</td></tr>
+<tr><td bgcolor="CC6900">Earth Cluster</td><td>Slot 7</td></tr>
+</table>
+</body>
+</html>
