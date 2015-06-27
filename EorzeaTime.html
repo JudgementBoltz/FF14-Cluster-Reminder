@@ -4,14 +4,14 @@
 <h1>Alert Timer for Unspoiled Node Spawns.</h1>
 <!-- Found the code for Eorzea clock generator online at http://jsfiddle.net/jryansc/6r85j/ -->
 <script type="text/javascript">
-
+//approximate time for one Eorzea hour in real seconds
 var E_TIME = 20.5714285714;
 var global = {
     utcTime: null,
     eorzeaTime: null
 };
 window.setInterval(updateClock, Math.floor(1000 * 60 /  E_TIME));
-
+//uses a predetermined time stamp to generate and set an Eorzea clock for FF14
 function updateClock() {
     global.utcTime = new Date().getTime();
     var eo_timestamp = Math.floor(global.utcTime * E_TIME);
@@ -32,6 +32,7 @@ function showTime() {
     var minutes = d.getUTCMinutes();
     minutes = padLeft(minutes);
     eTime.innerHTML = hours + ":" + minutes + " " + ampm;
+    //checks time to determine when to alert
 	eventTimer(hours,minutes,ampm);
 }
 function padLeft(val){
@@ -39,7 +40,7 @@ function padLeft(val){
     var pad = "00";
     return pad.substring(0, pad.length - str.length) + str;
 }
-
+//sets alerts for cluster spawn events 
 function eventTimer(hours,minutes,ampm)
 {
 	if(hours=="01" && minutes=="00" && ampm=="AM")
@@ -72,6 +73,7 @@ updateClock();
 </script>
 <div id="e-time"></div>
 <br>
+<!--Table of Cluster slot data for Mor Dhona-->
 <table>
 <tr><td bgcolor="9932CC">Lightning Cluster</td><td>Slot 2</td></tr>
 <tr><td bgcolor="880000">Fire Cluster</td><td>Slot 3</td></tr>
